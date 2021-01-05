@@ -55,12 +55,13 @@ shirtDesigns.addEventListener('change', e => {
 });
 
 activitiesFieldset.addEventListener('change', e => {
-    const dataCost = e.target.getAttribute(+'data-cost');
+    const dataCost = +e.target.getAttribute('data-cost');
     if (e.target.checked) {
         totalCost += dataCost
     } else {
         totalCost -= dataCost
-    };
+    }
+    activitiesCost.innerHTML = 'Total: $${totalCost}'
 });
 
 console.log(totalCost)
