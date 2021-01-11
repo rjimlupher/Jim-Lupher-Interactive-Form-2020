@@ -9,9 +9,18 @@ const jobRole = document.querySelector('#title');
 const otherJobRoleInput = document.querySelector('#other-job-role');
 const shirtDesigns = document.querySelector('#design');
 const shirtColors = document.querySelector('#color');
-const activitiesFieldset = document.querySelectorAll('#activities');
+const activitiesFieldset = document.querySelector('#activities');
 const activitiesCost = document.querySelector('#activities-cost');
-const totalCost = 0;
+let totalCost = 0;
+const payment = document.querySelector('#payment');
+const credit = document.querySelector('#credit-card');
+const paypal = document.querySelector('#paypal');
+const bitcoin = document.querySelector('#bitcoin');
+const email = document.querySelector('#email');
+const cardNumber = document.querySelector('#cc-num');
+const zip = document.querySelector('#zip');
+const cvv = document.querySelector('#cvv');
+const form = document.querySelector('form');
 
 // The function below puts the focus on any html element passed into it. 
 
@@ -46,10 +55,10 @@ shirtDesigns.addEventListener('change', e => {
         const dataTheme = shirtColors.children[i].getAttribute('data-theme');
         if (changeDesigns === dataTheme) {
             shirtColors.children[i].hidden = false;
-            //shirtColors.children[i].setAttribute()
+            shirtColors.children[i].selected = true;
         } else {
             shirtColors.children[i].hidden = true;
-            //shirtColors.children[i].setAttribute()
+            shirtColors.children[i].selected = false;
         }
     }
 });
@@ -57,11 +66,35 @@ shirtDesigns.addEventListener('change', e => {
 activitiesFieldset.addEventListener('change', e => {
     const dataCost = +e.target.getAttribute('data-cost');
     if (e.target.checked) {
-        totalCost += dataCost
+        totalCost += dataCost;
     } else {
-        totalCost -= dataCost
+        totalCost -= dataCost;
     }
-    activitiesCost.innerHTML = 'Total: $${totalCost}'
+    activitiesCost.innerHTML = `Total: $${totalCost}`;
 });
 
-console.log(totalCost)
+paypal.hidden = true;
+bitcoin.hidden = true;
+payment.children[1].setAttribute('selected', 'true');
+payment.addEventListener('change', (e) => {
+    const changePayment = e.target.value;
+    if (changePayment === 'paypal') {
+        credit.hidden = true;
+        paypal.hidden = false;
+        bitcoin.hidden = true;  
+    } else if (changePayment === 'bitcoin') {
+        credit.hidden = true;
+        paypal.hidden = true;
+        bitcoin.hidden = false;
+    } else {
+        credit.hidden = false;
+        paypal.hidden = true;
+        bitcoin.hidden = true;
+    }
+});
+
+form.addEventListener('submit', (e) => {
+    const nameValue = nameInput.value;
+    const nameRegex = /
+});
+
