@@ -93,34 +93,54 @@ payment.addEventListener('change', (e) => {
     }
 });
 
-form.addEventListener('submit', (e) => {
-    const nameValue = nameInput.value;
-    const nameRegex = /^[A-Za-z]+ ?[A-Za-z]*? ?[A-Za-z]*?$/.test(nameValue);
-    if (!nameRegex) {
-        e.preventDefault();
-    }
-    const emailValue = email.value;
-    const emailRegex = /^(\w+\.?-?\D?\w+\.?-?\D?|\D+)@(\w+\.?-?\D?\w+\.?-?\D?)\.([a-z]+)$/.test(emailValue);
-    if (!emailRegex) {
-        e.preventDefault();
-    }
-    if (payment.value === 'CREDIT') {
-        const creditValue = credit.value;
-        const creditRegex = /^([0-9]){4}\s?([0-9]){4}\s?([0-9]){4}\s?([0-9]){4}$/.test(creditValue);
-        if (!creditRegex) {
-            e.preventDefault();
-        }
-        const zipValue = zip.value;
-        const zipRegex = /^(([0-9]){5})-?(([0-9]){4})?$/.text(zipValue);
-        if (!zipRegex) {
-            e.preventDefault();
-        }
-        const cvvValue = cvv.value;
-        const cvvRegex = /^([0-9]){3}$/.test(cvvValue);
-        if (!cvvRegex) {
-            e.preventDefault();
-        }
-    }
+const nameValidator = () => {
+	const nameValue = nameInput.value;
+	const nameRegex = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameValue);
+	return nameRegex
+}
 
+const emailValidator = () => {
+	const emailValue = email.value;
+	const emailRegex = /^(\w+\.?-?\D?\w+\.?-?\D?|\D+)@(\w+\.?-?\D?\w+\.?-?\D?)\.([a-z]+)$/.test(emailValue);
+	return emailRegex
+}
+
+const creditValidator = () => {
+    const creditValue = cardNumber.value;
+    const creditRegex = /^([0-9]){4}\s?([0-9]){4}\s?([0-9]){4}\s?([0-9]){4}\s?$/.test(creditValue);
+    return creditRegex
+
+}
+
+const zipValidator = () => {
+    const zipValue = zip.value;
+    const zipRegex = /^(([0-9]){5})-?(([0-9]){4})?$/.test(zipValue);
+    return zipRegex;
+}
+
+const cvvValidator = () => {
+    const cvvValue = cvv.value;
+    const cvvRegex = /^([0-9]){3}$/.test(cvvValue);
+    return cvvRegex;
+}
+
+form.addEventListener('submit', (e) => {
+    if (!nameValidator()) {
+        e.preventDefault();
+    }
+    if (!emailValidator()) {
+        e.preventDefault();
+    }
+    if (payment.value === 'Credit Card') {
+        if (!creditValidator()) {
+            e.preventDefault();
+        }
+        if (!zipValidator()) {
+            e.preventDefault();
+        }
+        if (!cvvValidator()) {
+            e.preventDefault();
+        }
+    }   
 });
 
