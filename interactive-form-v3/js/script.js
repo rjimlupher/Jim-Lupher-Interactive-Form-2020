@@ -65,6 +65,9 @@ shirtDesigns.addEventListener('change', e => {
     }
 });
 
+/* 
+This listener adds to or subtracts from the total cost of the activities when they are checked or unchecked.
+*/
 activitiesFieldset.addEventListener('change', e => {
     const dataCost = +e.target.getAttribute('data-cost');
     if (e.target.checked) {
@@ -75,6 +78,10 @@ activitiesFieldset.addEventListener('change', e => {
     activitiesCost.innerHTML = `Total: $${totalCost}`;
 });
 
+/*
+These lines of code including the event listener allow a user to choose which payment method they want 
+while hiding the unwanted options
+*/
 paypal.hidden = true;
 bitcoin.hidden = true;
 payment.children[1].setAttribute('selected', 'true');
@@ -95,6 +102,9 @@ payment.addEventListener('change', (e) => {
     }
 });
 
+/*
+These functions contain regular expressions which compare to the name,eemail, credit, zip, and cvv fields.
+*/
 const nameValidator = () => {
 	const nameValue = nameInput.value;
 	const nameRegex = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameValue);
@@ -126,6 +136,11 @@ const cvvValidator = () => {
     return cvvRegex;
 }
 
+/*
+This event listener checks to see if any of the fields on the site are valid. 
+If they are invalid, it does a number of actions from preventing the default mechanism
+of the page to applying formatting to show which feilds were not formatted correctly.
+*/
 form.addEventListener('submit', (e) => {
     if (!nameValidator()) {
         e.preventDefault();
@@ -184,8 +199,10 @@ form.addEventListener('submit', (e) => {
     console.log(payment.value)
 });
 
-/* This for loop loops over the activities checkboxes and applies a class
-with formatting to any checked checkboxes*/
+/* 
+This for loop loops over the activities checkboxes and applies a class
+with formatting to any checked checkboxes
+*/
 for (let i = 0; i < checkboxes.length; i++) {
     const checkboxesLabel = checkboxes[i].parentNode;
     checkboxes[i].addEventListener('focus', (e) => {
