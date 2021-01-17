@@ -14,6 +14,7 @@ const activitiesCost = document.querySelector('#activities-cost');
 let totalCost = 0;
 const payment = document.querySelector('#payment');
 const credit = document.querySelector('#credit-card');
+const ccNum = document.querySelector('#cc-num')
 const paypal = document.querySelector('#paypal');
 const bitcoin = document.querySelector('#bitcoin');
 const email = document.querySelector('#email');
@@ -108,7 +109,7 @@ const emailValidator = () => {
 
 const creditValidator = () => {
     const creditValue = cardNumber.value;
-    const creditRegex = /^([0-9]){4}\s?([0-9]){4}\s?([0-9]){4}\s?([0-9]){4}\s?$/.test(creditValue);
+    const creditRegex = /^([0-9]){4}\s?([0-9]){4}\s?([0-9]){4}\s?([0-9]){4}|([0-9]){13}\s?$/.test(creditValue);
     return creditRegex
 
 }
@@ -128,24 +129,63 @@ const cvvValidator = () => {
 form.addEventListener('submit', (e) => {
     if (!nameValidator()) {
         e.preventDefault();
+        nameInput.parentNode.classList.add('not-valid');
+        nameInput.parentNode.classList.remove('valid');
+        nameInput.parentNode.lastElementChild.style.display = 'block';
+    } else {
+        nameInput.parentNode.classList.add('valid');
+        nameInput.parentNode.classList.remove('not-valid');
+        nameInput.parentNode.lastElementChild.style.display = 'none';
     }
     if (!emailValidator()) {
         e.preventDefault();
+        email.parentNode.classList.add('not-valid');
+        email.parentNode.classList.remove('valid');
+        email.parentNode.lastElementChild.style.display = 'block';
+
+    } else {
+        email.parentNode.classList.add('valid');
+        email.parentNode.classList.remove('not-valid');
+        email.parentNode.lastElementChild.style.display = 'block';
+
     }
     if (payment.value === 'credit-card') {
         if (!creditValidator()) {
             e.preventDefault();
+            ccNum.parentNode.classList.add('not-valid');
+            ccNum.parentNode.classList.remove('valid');
+            ccNum.parentNode.lastElementChild.style.display = 'block';
+        } else {
+            ccNum.parentNode.classList.add('valid');
+            ccNum.parentNode.classList.remove('not-valid');
+            ccNum.parentNode.lastElementChild.style.display = 'none';
         }
         if (!zipValidator()) {
             e.preventDefault();
+            zip.parentNode.classList.add('not-valid');
+            zip.parentNode.classList.remove('valid');
+            zip.parentNode.lastElementChild.style.display = 'block';
+        } else {
+            zip.parentNode.classList.add('valid');
+            zip.parentNode.classList.remove('not-valid');
+            zip.parentNode.lastElementChild.style.display = 'none';
         }
         if (!cvvValidator()) {
             e.preventDefault();
+            cvv.parentNode.classList.add('not-valid');
+            cvv.parentNode.classList.remove('valid');
+            cvv.parentNode.lastElementChild.style.display = 'block';
+        } else {
+            cvv.parentNode.classList.add('valid');
+            cvv.parentNode.classList.remove('not-valid');
+            cvv.parentNode.lastElementChild.style.display = 'none';
         }
     }   
     console.log(payment.value)
 });
 
+/* This for loop loops over the activities checkboxes and applies a class
+with formatting to any checked checkboxes*/
 for (let i = 0; i < checkboxes.length; i++) {
     const checkboxesLabel = checkboxes[i].parentNode;
     checkboxes[i].addEventListener('focus', (e) => {
@@ -162,3 +202,6 @@ for (let i = 0; i < checkboxes.length; i++) {
         }
     });
 }
+
+
+
