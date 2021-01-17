@@ -21,6 +21,7 @@ const cardNumber = document.querySelector('#cc-num');
 const zip = document.querySelector('#zip');
 const cvv = document.querySelector('#cvv');
 const form = document.querySelector('form');
+const checkboxes = document.querySelectorAll('#activities input');
 
 // The function below puts the focus on any html element passed into it. 
 
@@ -131,7 +132,7 @@ form.addEventListener('submit', (e) => {
     if (!emailValidator()) {
         e.preventDefault();
     }
-    if (payment.value === 'Credit Card') {
+    if (payment.value === 'credit-card') {
         if (!creditValidator()) {
             e.preventDefault();
         }
@@ -142,5 +143,22 @@ form.addEventListener('submit', (e) => {
             e.preventDefault();
         }
     }   
+    console.log(payment.value)
 });
 
+for (let i = 0; i < checkboxes.length; i++) {
+    const checkboxesLabel = checkboxes[i].parentNode;
+    checkboxes[i].addEventListener('focus', (e) => {
+        const activitiesFocus = e.target;
+        if (checkboxes[i] === activitiesFocus) {
+            checkboxesLabel.classList.add('focus')
+        }
+    });
+
+    checkboxes[i].addEventListener('blur', (e) => {
+        const activitiesBlur = e.target;
+        if (checkboxes[i] === activitiesBlur) {
+            checkboxesLabel.classList.remove('focus')
+        }
+    });
+}
