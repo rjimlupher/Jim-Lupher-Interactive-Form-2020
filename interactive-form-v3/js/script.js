@@ -123,7 +123,7 @@ const emailValidator = () => {
 
 const creditValidator = () => {
     const creditValue = cardNumber.value;
-    const creditRegex = /^([0-9]{4})([0-9]{4})([0-9]{4})([0-9]{1,4})$/.test(creditValue);
+    const creditRegex = /^([0-9]{4})\s?([0-9]{4})\s?([0-9]{4})\s?([0-9]{1,4})\s?$/.test(creditValue);
     return creditRegex
 
 }
