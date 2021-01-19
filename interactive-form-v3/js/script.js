@@ -12,6 +12,7 @@ const shirtColors = document.querySelector('#color');
 const activitiesFieldset = document.querySelector('#activities');
 const activitiesCost = document.querySelector('#activities-cost');
 let totalCost = 0;
+let activitiesTotal = 0;
 const payment = document.querySelector('#payment');
 const credit = document.querySelector('#credit-card');
 const ccNum = document.querySelector('#cc-num')
@@ -23,6 +24,7 @@ const zip = document.querySelector('#zip');
 const cvv = document.querySelector('#cvv');
 const form = document.querySelector('form');
 const checkboxes = document.querySelectorAll('#activities input');
+const activitiesHint = document.querySelector('#activities-hint');
 
 // The function below puts the focus on any html element passed into it. 
 
@@ -72,8 +74,10 @@ activitiesFieldset.addEventListener('change', e => {
     const dataCost = +e.target.getAttribute('data-cost');
     if (e.target.checked) {
         totalCost += dataCost;
+        activitiesTotal += 1;
     } else {
         totalCost -= dataCost;
+        activitiesTotal -= 1;
     }
     activitiesCost.innerHTML = `Total: $${totalCost}`;
 });
@@ -119,7 +123,7 @@ const emailValidator = () => {
 
 const creditValidator = () => {
     const creditValue = cardNumber.value;
-    const creditRegex = /^([0-9]){4}\s?([0-9]){4}\s?([0-9]){4}\s?([0-9]){4}|([0-9]){13}\s?$/.test(creditValue);
+    const creditRegex = /^([0-9]{4})([0-9]{4})([0-9]{4})([0-9]{1,4})$/.test(creditValue);
     return creditRegex
 
 }
@@ -195,6 +199,10 @@ form.addEventListener('submit', (e) => {
             cvv.parentNode.classList.remove('not-valid');
             cvv.parentNode.lastElementChild.style.display = 'none';
         }
+        if (activitiesTotal === 0) {
+            e.preventDefault();
+            activitiesHint.style.display = 'block';
+        }
     }   
     console.log(payment.value)
 });
@@ -219,6 +227,7 @@ for (let i = 0; i < checkboxes.length; i++) {
         }
     });
 }
+
 
 
 
