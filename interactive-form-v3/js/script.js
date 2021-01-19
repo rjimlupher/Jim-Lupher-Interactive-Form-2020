@@ -168,6 +168,10 @@ form.addEventListener('submit', (e) => {
         email.parentNode.lastElementChild.style.display = 'block';
 
     }
+    if (activitiesTotal === 0) {
+        e.preventDefault();
+        activitiesHint.style.display = 'block';
+    }
     if (payment.value === 'credit-card') {
         if (!creditValidator()) {
             e.preventDefault();
@@ -199,10 +203,7 @@ form.addEventListener('submit', (e) => {
             cvv.parentNode.classList.remove('not-valid');
             cvv.parentNode.lastElementChild.style.display = 'none';
         }
-        if (activitiesTotal === 0) {
-            e.preventDefault();
-            activitiesHint.style.display = 'block';
-        }
+        
     }   
     console.log(payment.value)
 });
