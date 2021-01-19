@@ -171,6 +171,8 @@ form.addEventListener('submit', (e) => {
     if (activitiesTotal === 0) {
         e.preventDefault();
         activitiesHint.style.display = 'block';
+    } else {
+        activitiesHint.style.display = 'none';
     }
     if (payment.value === 'credit-card') {
         if (!creditValidator()) {
